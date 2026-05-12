@@ -42,4 +42,9 @@ export interface Todo {
   completed: boolean;
 }
 
+export interface UserDetails extends User {
+  posts: Post[];
+  todos: Todo[];
+}
+
 export type SortOrder = "asc" | "desc";

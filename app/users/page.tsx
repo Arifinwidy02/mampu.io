@@ -1,5 +1,5 @@
 import { UserClient } from "@/features/users/UserClient";
 
-export const UsersPage = () => {
-        return <UserClient />;
-};
+export default function UsersPage() {
+  return <UserClient />;
+}

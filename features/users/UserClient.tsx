@@ -68,7 +68,7 @@ export const UserClient = () => {
             {processedUsers?.map((user: User) => (
               <UserTableRow key={user.id} user={user} />
             ))}
-          </TableBody>{" "}
+          </TableBody>
         </Table>
         {processedUsers?.length === 0 && (
           <div className="text-center py-4 text-muted-foreground">
