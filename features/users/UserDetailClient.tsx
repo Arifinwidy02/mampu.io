@@ -1,32 +1,46 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import LottieState from "@/components/client/LottieState";
 import { UserDetailSkeleton } from "@/components/client/UserDetailSkeleton";
 import { useUserDetails } from "@/hooks/use-users";
 import { ChevronLeft, CheckCircle2, Circle } from "lucide-react";
-import Link from "next/link";
 
 export default function UserDetailClient({ id }: { id: string }) {
-  const { isLoading, isError, data: user } = useUserDetails(id);
+  const { isLoading, isError, data: user, refetch } = useUserDetails(id);
   const [activeTab, setActiveTab] = useState<"posts" | "todos">("posts");
+  const router = useRouter();
 
   if (isLoading) return <UserDetailSkeleton />;
 
   if (isError || !user)
     return (
-      <div className="container mx-auto py-10 text-red-500">
-        User not found.
+      <div className="container mx-auto py-10">
+        <LottieState
+          src="/lottie/empty_state.json"
+          description="Failed to load user details. Please try again."
+        >
+          <Button onClick={() => refetch()}>Try Again</Button>
+        </LottieState>
       </div>
     );
 
   return (
     <div className="container mx-auto py-10 space-y-6">
-      <Button variant="ghost" asChild>
-        <Link href="/users">
-          <ChevronLeft className="mr-2 h-4 w-4" /> Back to list
-        </Link>
+      <Button
+        variant="ghost"
+        onClick={() => {
+          if (window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/users");
+          }
+        }}
+      >
+        <ChevronLeft className="mr-2 h-4 w-4" /> Back to list
       </Button>
 
       <Card className="max-w-4xl mx-auto shadow-md">

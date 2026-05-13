@@ -1,3 +1,5 @@
+"use client";
+
 import { FilterType } from "@/types";
 import {
   Select,
@@ -6,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { ListFilter } from "lucide-react";
 
 export const Filter = ({
   statusFilter,
@@ -17,9 +20,10 @@ export const Filter = ({
   return (
     <Select value={statusFilter} onValueChange={setStatusFilter}>
       <SelectTrigger className="w-[200px]">
+        <ListFilter className="h-4 w-4 mr-2 shrink-0 text-muted-foreground" />
         <SelectValue placeholder="Filter by Status" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent position="popper" sideOffset={4}>
         <SelectItem value="all">All Users</SelectItem>
         <SelectItem value="pending">Has Pending Todos</SelectItem>
         <SelectItem value="completed">All Todos Done</SelectItem>

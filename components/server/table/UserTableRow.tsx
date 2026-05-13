@@ -1,7 +1,9 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { User } from "@/types";
+import { MessageSquare, Clock, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const UserTableRow = ({ user }: { user: User }) => {
@@ -24,7 +26,22 @@ export const UserTableRow = ({ user }: { user: User }) => {
       <TableCell>{name}</TableCell>
       <TableCell>{email}</TableCell>
       <TableCell>{username}</TableCell>
-      <TableCell>{`Post: ${totalPosts}, pending Todo: ${pendingTodos}, completed Todo: ${completedTodos}`}</TableCell>
+      <TableCell>
+        <div className="flex items-center gap-2">
+          <Badge variant="secondary">
+            <MessageSquare className="h-3 w-3" />
+            {totalPosts}
+          </Badge>
+          <Badge variant={pendingTodos > 0 ? "destructive" : "outline"}>
+            <Clock className="h-3 w-3" />
+            {pendingTodos}
+          </Badge>
+          <Badge variant="outline">
+            <CheckCircle2 className="h-3 w-3" style={{ color: "green" }} />
+            {completedTodos}
+          </Badge>
+        </div>
+      </TableCell>
     </TableRow>
   );
 };

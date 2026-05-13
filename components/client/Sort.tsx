@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { ArrowUpDown } from "lucide-react";
 
 export const Sort = ({
   sortBy,
@@ -19,13 +20,10 @@ export const Sort = ({
   return (
     <Select value={sortBy} onValueChange={setSortBy}>
       <SelectTrigger>
+        <ArrowUpDown className="h-4 w-4 mr-2 shrink-0 text-muted-foreground" />
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
-      <SelectContent
-        position="popper"
-        sideOffset={4}
-        style={{ marginLeft: 38 }}
-      >
+      <SelectContent position="popper" sideOffset={4}>
         <SelectItem value="asc">Ascending</SelectItem>
         <SelectItem value="desc">Descending</SelectItem>
       </SelectContent>
