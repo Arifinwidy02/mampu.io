@@ -1,5 +1,5 @@
 import { Sort } from "@/components/client/Sort";
-import { render, screen } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
 
 describe("Sort", () => {
   let setSortBy: jest.Mock;
@@ -10,18 +10,18 @@ describe("Sort", () => {
 
   describe("rendering", () => {
     it('shows "Ascending" when sortBy is asc', () => {
-      render(<Sort sortBy="asc" setSortBy={setSortBy} />);
-      expect(screen.getByText("Ascending")).toBeInTheDocument();
+      const { container } = render(<Sort sortBy="asc" setSortBy={setSortBy} />);
+      expect(within(container).getByText("Ascending")).toBeInTheDocument();
     });
 
     it('shows "Descending" when sortBy is desc', () => {
-      render(<Sort sortBy="desc" setSortBy={setSortBy} />);
-      expect(screen.getByText("Descending")).toBeInTheDocument();
+      const { container } = render(<Sort sortBy="desc" setSortBy={setSortBy} />);
+      expect(within(container).getByText("Descending")).toBeInTheDocument();
     });
 
     it("renders a combobox (select trigger)", () => {
-      render(<Sort sortBy="asc" setSortBy={setSortBy} />);
-      expect(screen.getByRole("combobox")).toBeInTheDocument();
+      const { container } = render(<Sort sortBy="asc" setSortBy={setSortBy} />);
+      expect(within(container).getByRole("combobox")).toBeInTheDocument();
     });
   });
 });
