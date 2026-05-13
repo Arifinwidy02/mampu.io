@@ -26,6 +26,9 @@ export interface User {
   phone: string;
   website: string;
   company: Company;
+  totalPosts: number;
+  completedTodos: number;
+  pendingTodos: number;
 }
 
 export interface Post {
@@ -48,3 +51,10 @@ export interface UserDetails extends User {
 }
 
 export type SortOrder = "asc" | "desc";
+export type FilterType = "all" | "pending" | "completed";
+
+export interface LottieStateProps {
+  src: string;
+  description: string;
+  children?: React.ReactNode;
+}

@@ -1,4 +1,4 @@
-import { fetchUser } from "@/services/api";
+import { fetchUserDetails } from "@/services/api";
 import type { Metadata } from "next";
 import UserDetailClient from "@/features/users/UserDetailClient";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({
   const { id } = await params;
 
   try {
-    const user = await fetchUser(id);
+    const user = await fetchUserDetails(id);
     return {
       title: `${user.name} (@${user.username})`,
       description: `${user.name} — ${user.email} | ${user.company.name}`,
