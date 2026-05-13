@@ -132,7 +132,7 @@ export const UserClient = () => {
         />
       ) : (
         <>
-          <div className="border rounded-md">
+          <div className="border rounded-md overflow-x-auto">
             <Table>
               <TableHeader className="bg-muted">
                 <TableRow>

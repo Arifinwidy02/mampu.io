@@ -1,13 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import LottieState from "@/components/client/LottieState";
 import { UserDetailSkeleton } from "@/components/client/UserDetailSkeleton";
+import { SimpleCard } from "@/components/server/card/SimpleCard";
+import { TodoChecklist } from "@/components/server/card/ToDoChecklist";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUserDetails } from "@/hooks/use-users";
-import { ChevronLeft, CheckCircle2, Circle } from "lucide-react";
+import { Post } from "@/types";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function UserDetailClient({ id }: { id: string }) {
   const { isLoading, isError, data: user, refetch } = useUserDetails(id);
@@ -118,18 +121,8 @@ export default function UserDetailClient({ id }: { id: string }) {
 
             {activeTab === "posts" && (
               <div className="grid grid-cols-1 gap-4 animate-in fade-in duration-300">
-                {user.posts?.map((post) => (
-                  <div
-                    key={post.id}
-                    className="p-4 rounded-xl border bg-card hover:border-primary/30 transition-colors"
-                  >
-                    <h4 className="font-bold capitalize text-primary mb-1">
-                      {post.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {post.body}
-                    </p>
-                  </div>
+                {user.posts?.map((post: Post) => (
+                  <SimpleCard post={post} key={post.id} />
                 ))}
               </div>
             )}
@@ -137,25 +130,7 @@ export default function UserDetailClient({ id }: { id: string }) {
             {activeTab === "todos" && (
               <div className="space-y-2 animate-in fade-in duration-300">
                 {user.todos?.map((todo) => (
-                  <div
-                    key={todo.id}
-                    className="flex items-center gap-3 p-3 rounded-lg border bg-muted/5 text-sm"
-                  >
-                    {todo.completed ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
-                    ) : (
-                      <Circle className="h-5 w-5 text-orange-400 shrink-0" />
-                    )}
-                    <span
-                      className={
-                        todo.completed
-                          ? "line-through text-muted-foreground"
-                          : "font-medium"
-                      }
-                    >
-                      {todo.title}
-                    </span>
-                  </div>
+                  <TodoChecklist todo={todo} key={todo.id} />
                 ))}
               </div>
             )}

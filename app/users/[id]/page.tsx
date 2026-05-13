@@ -2,6 +2,8 @@ import { fetchUserDetails } from "@/services/api";
 import type { Metadata } from "next";
 import UserDetailClient from "@/features/users/UserDetailClient";
 
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {
